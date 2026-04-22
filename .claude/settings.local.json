@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(node *)",
+      "Bash(awk --version)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(npx jest *)",
+      "Bash(npm test *)"
+    ]
+  }
+}
