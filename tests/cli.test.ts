@@ -10,7 +10,8 @@ function tsawk(args: string[], input?: string): string {
   if (input !== undefined) {
     opts.input = input;
   }
-  return execFileSync(process.execPath, [CLI, ...args], opts);
+  const output = execFileSync(process.execPath, [CLI, ...args], opts) as string;
+  return output.replace(/\r\n/g, '\n');
 }
 
 describe('CLI', () => {

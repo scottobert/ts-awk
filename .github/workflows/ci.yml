@@ -8,46 +8,18 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18, 20, 22, 24]
+    uses: scottobert/deployment-pipeline/.github/workflows/test.yml@main
 
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
-
-      - run: npm ci
-
-      - run: npm run build
-
-      - run: npm test
-
-  sonarcloud:
-    runs-on: ubuntu-latest
+  sonar:
     needs: test
+    uses: scottobert/deployment-pipeline/.github/workflows/sonar.yml@main
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm ci
-
-      - run: npm run build
-
-      - run: npm run test:coverage
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  release:
+    needs: [test, sonar]
+    if: github.event_name == 'push'
+    uses: scottobert/deployment-pipeline/.github/workflows/semantic-release.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

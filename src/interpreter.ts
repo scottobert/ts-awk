@@ -175,7 +175,7 @@ export class Interpreter {
 
   private splitRecords(content: string, rs: string): string[] {
     if (rs === '\n') {
-      const lines = content.split('\n');
+      const lines = content.split('\n').map(line => line.endsWith('\r') ? line.slice(0, -1) : line);
       if (lines.length > 0 && lines[lines.length - 1] === '') {
         lines.pop();
       }
