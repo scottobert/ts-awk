@@ -20,10 +20,10 @@ jobs:
     needs: [test, sonar]
     if: github.event_name == 'push'
     permissions:
-      id-token: write  # Required for OIDC
-      contents: write
-      packages: write
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for trusted publishing and npm provenance
     uses: scottobert/deployment-pipeline/.github/workflows/semantic-release.yml@main
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
