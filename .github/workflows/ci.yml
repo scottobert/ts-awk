@@ -19,6 +19,9 @@ jobs:
   release:
     needs: [test, sonar]
     if: github.event_name == 'push'
+    permissions:
+      contents: write
+      packages: write
     uses: scottobert/deployment-pipeline/.github/workflows/semantic-release.yml@main
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
