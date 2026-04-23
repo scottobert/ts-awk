@@ -25,5 +25,7 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for trusted publishing and npm provenance
     uses: scottobert/deployment-pipeline/.github/workflows/semantic-release.yml@main
+    with:
+      node-version: 'lts/*'
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
