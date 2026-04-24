@@ -18,7 +18,7 @@ jobs:
   #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   release:
-    needs: [test, sonar]
+    needs: [test] #, sonar]
     if: github.event_name != 'pull_request' # Don't run release on pull request events
     permissions:
       contents: write # to be able to publish a GitHub release
