@@ -4,6 +4,7 @@
   "description": "A TypeScript implementation of AWK text processing language",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "url": "https://github.com/scottobert/ts-awk",
   "bin": {
     "tsawk": "./dist/cli.js"
   },
