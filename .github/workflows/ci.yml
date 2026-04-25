@@ -11,11 +11,11 @@ jobs:
   test:
     uses: scottobert/deployment-pipeline/.github/workflows/test.yml@main
 
-  # sonar:
-  #   needs: test
-  #   uses: scottobert/deployment-pipeline/.github/workflows/sonar.yml@main
-  #   secrets:
-  #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  sonar:
+    needs: test
+    uses: scottobert/deployment-pipeline/.github/workflows/sonar.yml@main
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   release:
     needs: [test] #, sonar]
